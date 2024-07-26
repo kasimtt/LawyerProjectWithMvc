@@ -1,0 +1,77 @@
+﻿@using LawyerProject.Application.Features.Queries.Adverts.GetAllAdvert
+@model GetAllAdvertQueryResponse
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@foreach (var advert in Model.Adverts)
+
+{
+    <div class="card lastCard" style="margin:20px">
+        <div class="card-header">
+            <div class="card-title">
+                <h5>@advert.UserFullName</h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                <p>@advert.UserPhoneNumber</p>
+            </div>
+        </div>
+        <div class="card-footer">
+            <h1>@advert.City</h1>
+        </div>
+    </div>
+}
+
+
+<style>
+    /* Genel kart stili */
+    
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Kart başlığı */
+    .card-header {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .card-title h5 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: #333;
+    }
+
+    /* Kart gövdesi */
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-text p {
+        margin: 0;
+        font-size: 1rem;
+        color: #555;
+    }
+
+    /* Kart altbilgisi */
+    .card-footer {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-top: 1px solid #e0e0e0;
+        text-align: center;
+    }
+
+        .card-footer h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+</style>

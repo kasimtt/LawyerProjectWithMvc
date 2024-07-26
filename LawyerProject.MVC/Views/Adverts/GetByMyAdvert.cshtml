@@ -1,0 +1,42 @@
+﻿@using LawyerProject.Application.Features.Queries.Adverts.GetByIdAdvert
+@model GetByMyAdvertQueryResponse
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+@foreach (var advert in Model.Advert)
+{
+    <div class="blog_post">
+        <div class="img_pod">
+            <img src="https://pbs.twimg.com/profile_images/890901007387025408/oztASP4n.jpg" alt="random image">
+        </div>
+        <div class="container_copy">
+            <h3>12 January 2019</h3>
+            <h1>@advert.CaseType</h1>
+            <p>@advert.Description</p>
+            <p>@advert.City</p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    @advert.Price
+                </div>
+                <div class="col-sm-6" style="font-size:15px">
+                    @advert.Address
+                </div>
+                <div class="col-sm-3">
+                    @advert.CaseDate
+                </div>
+            </div>
+
+            <form asp-controller="Adverts" asp-action="Delete" method="post" class="d-inline">
+                <input type="hidden" name="id" value="@advert.ObjectId" />
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+}

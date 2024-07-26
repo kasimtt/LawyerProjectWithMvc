@@ -1,0 +1,103 @@
+﻿@using LawyerProject.Application.Features.Commands.AppUsers.LoginUser
+@model LoginUserCommandRequest
+
+<div class="wrapper">
+    <div class="login-box">
+        <div class="login-header">
+            <span>Login</span>
+        </div>
+        <form action="Login" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="input_box">
+                <input asp-for="UserNameOrEmail" type="text"  class="input-field" required>
+                <label asp-for= "UserNameOrEmail" class="label">Email</label>
+                <i class="bx bx-user icon"></i>
+            </div>
+            <div class="input_box">
+                <input asp-for="Password" type="password"  class="input-field" required oninput="checkPasswordStrength(this.value)">
+                <label asp-for="Password"  class="label">Password</label>
+                <i class="bx bx-lock-alt icon" id="togglePassword"></i>
+            </div>
+            <div class="input_box">
+                <input type="submit" class="input-submit" value="Login" onclick="handleLogin()">
+            </div>
+        
+        </form>
+        
+        
+
+        <div class="remember-forgot">
+            <div class="remember-me">
+                <input type="checkbox" id="remember">
+                <label for="remember"> Remember me </label>
+            </div>
+            <div class="forgot">
+                <a href="#" data-toggle="modal" data-target="#forgotPasswordModal">Forgot password?</a>
+            </div>>
+        </div>
+      
+        <div class="register">
+            <span>Don't have an account ? <a href="/Auth/Register">Register</a></span>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Compare this snippet from LawyerProject.MVC/Views/Auth/ForgotPassword.cshtml: -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="forgotPasswordForm">
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" onclick="submitForgotPasswordForm()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+        function submitForgotPasswordForm() {
+            // Form verilerini topla
+            var formData = {
+                email: $('#email').val()
+            };
+
+            // AJAX çağrısı yap
+            $.ajax({
+                url: '/Auth/ResetPassword', // Controller ve action isimlerini doğru ayarlayın
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    // Başarılı yanıt alındığında yapılacak işlemler
+                    alert('Password reset request submitted successfully.');
+                    $('#forgotPasswordModal').modal('hide'); // Modali kapat
+                },
+                error: function (xhr, status, error) {
+                    // Hata durumunda yapılacak işlemler
+                    alert('An error occurred: ' + error);
+                }
+            });
+        }
+    </script>
+}
+   
+       

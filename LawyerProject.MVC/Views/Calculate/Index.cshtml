@@ -1,0 +1,167 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Net to Gross, Gross to Net, Severance Pay, and Notice Pay Calculator</h2>
+
+<div class="container">
+    <div class="row">
+        <!-- Net to Gross Card -->
+        <div class="col-md-6 mb-3">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">Net to Gross Calculation</h5>
+                    <div class="form-group">
+                        <label for="netFee">Net Fee</label>
+                        <input type="number" class="form-control" id="netFee" placeholder="Enter Net Fee">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateGrossFee()">Calculate</button>
+                    <div id="grossFeeResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gross to Net Card -->
+        <div class="col-md-6 mb-3">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">Gross to Net Calculation</h5>
+                    <div class="form-group">
+                        <label for="grossFee">Gross Fee</label>
+                        <input type="number" class="form-control" id="grossFee" placeholder="Enter Gross Fee">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateNetFee()">Calculate</button>
+                    <div id="netFeeResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Severance Pay Card -->
+        <div class="col-md-6 mb-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Severance Pay Calculation</h5>
+                    <div class="form-group">
+                        <label for="dateOfEntry">Date of Entry</label>
+                        <input type="date" class="form-control" id="dateOfEntry" placeholder="Enter Date of Entry">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfRelease">Date of Release</label>
+                        <input type="date" class="form-control" id="dateOfRelease" placeholder="Enter Date of Release">
+                    </div>
+                    <div class="form-group">
+                        <label for="netSalary">Net Salary</label>
+                        <input type="number" class="form-control" id="netSalary" placeholder="Enter Net Salary">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateSeverancePay()">Calculate</button>
+                    <div id="severancePayResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notice Pay Card -->
+        <div class="col-md-6 mb-3">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">Notice Pay Calculation</h5>
+                    <div class="form-group">
+                        <label for="dateOfEntryNotice">Date of Entry</label>
+                        <input type="date" class="form-control" id="dateOfEntryNotice" placeholder="Enter Date of Entry">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfReleaseNotice">Date of Release</label>
+                        <input type="date" class="form-control" id="dateOfReleaseNotice" placeholder="Enter Date of Release">
+                    </div>
+                    <div class="form-group">
+                        <label for="netSalaryNotice">Net Salary</label>
+                        <input type="number" class="form-control" id="netSalaryNotice" placeholder="Enter Net Salary">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateNoticePay()">Calculate</button>
+                    <div id="noticePayResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+        function calculateGrossFee() {
+            var netFee = document.getElementById('netFee').value;
+
+            $.ajax({
+                url: '/calculate/GetNetToGross',
+                type: 'GET',
+                data: { NetFee: netFee },
+                success: function (data) {
+                    var resultDiv = document.getElementById('grossFeeResult');
+                    resultDiv.innerHTML = '<p>Gross Fee: ' + data.grossFee + '</p>';
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        function calculateNetFee() {
+            var grossFee = document.getElementById('grossFee').value;
+
+            $.ajax({
+                url: '/calculate/GetGrossToNet',
+                type: 'GET',
+                data: { GrossFee: grossFee },
+                success: function (data) {
+                    var resultDiv = document.getElementById('netFeeResult');
+                    resultDiv.innerHTML = '<p>Net Fee: ' + data.netFee + '</p>';
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        function calculateSeverancePay() {
+            console.log("deneme")
+            var dateOfEntry = document.getElementById('dateOfEntry').value;
+            var dateOfRelease = document.getElementById('dateOfRelease').value;
+            var netSalary = document.getElementById('netSalary').value;
+
+            $.ajax({
+                url: '/calculate/GetSeverancePay',
+                type: 'GET',
+                data: { DateOfEntry: dateOfEntry, DateOfRelease: dateOfRelease, NetSalary: netSalary },
+                success: function (data) {
+                    var resultDiv = document.getElementById('severancePayResult');
+                    resultDiv.innerHTML = '<p>Severance Pay: ' + data.severancePay + '</p>';
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        function calculateNoticePay() {
+            var dateOfEntry = document.getElementById('dateOfEntryNotice').value;
+            var dateOfRelease = document.getElementById('dateOfReleaseNotice').value;
+            var netSalary = document.getElementById('netSalaryNotice').value;
+
+            $.ajax({
+                url: '/calculate/GetNoticePay',
+                type: 'GET',
+                data: { DateOfEntry: dateOfEntry, DateOfRelease: dateOfRelease, NetSalary: netSalary },
+                success: function (data) {
+                    var resultDiv = document.getElementById('noticePayResult');
+                    resultDiv.innerHTML = '<p>Notice Pay: ' + data.noticePay + '</p>';
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+    </script>
+}

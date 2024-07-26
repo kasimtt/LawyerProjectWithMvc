@@ -1,0 +1,67 @@
+﻿@using LawyerProject.Application.Features.Commands.AppUsers.CreateUser
+@model CreateUserCommadRequest
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+
+<div class="wrapper">
+    <div class="login-box">
+        <div class="login-header">
+            <span>Login</span>
+        </div>
+        <form action="Register" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="input_box">
+                <input asp-for="FirstName" type="text" class="input-field" required>
+                <label asp-for="FirstName" class="label">First Name</label>
+                <i class="bx bx-user icon"></i>
+            </div>
+
+            <div class="input_box">
+                <input asp-for="LastName" type="text" class="input-field" required>
+                <label asp-for="LastName" class="label">Last Name</label>
+                <i class="bx bx-user icon"></i>
+            </div>
+
+            <div class="input_box">
+                <input asp-for="UserName" type="text" class="input-field" required>
+                <label asp-for="UserName" class="label">Username</label>
+                <i class="bx bx-user icon"></i>
+            </div>
+
+            <div class="input_box">
+                <input asp-for="Email" type="email" class="input-field" required>
+                <label asp-for="Email" class="label">Email</label>
+                <i class="bx bx-envelope icon"></i>
+            </div>
+
+            <div class="input_box">
+                <input asp-for="Password" type="password" class="input-field" required>
+                <label asp-for="Password" class="label">Password</label>
+                <i class="bx bx-lock-alt icon"></i>
+            </div>
+
+            <div class="input_box">
+                <input asp-for="PasswordConfirm" type="password" class="input-field" required>
+                <label asp-for="PasswordConfirm" class="label">Confirm Password</label>
+                <i class="bx bx-lock-alt icon"></i>
+            </div>
+
+            <div class="input_box">
+                <input asp-for="PhoneNumber" type="tel" class="input-field" required>
+                <label asp-for="PhoneNumber" class="label">Phone Number</label>
+                <i class="bx bx-phone icon"></i>
+            </div>
+
+            <div class="input_box">
+                <input type="submit" class="input-submit" value="Register">
+            </div>
+        </form>
+    </div>
+</div>
